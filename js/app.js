@@ -114,18 +114,16 @@ class Lavadora extends Electrodomestico{
         this.carga = carga
     }
     presioFinal (){
-        //chipiu esto no se peude hacer segun lo q lei
-        //quiero sobreescribir el metodo de la clase padre
-        // super.presioFinal()
-       
         
         var plus =super.presioFinal();
+        
         if(this.carga > 30){
            plus  += 50
         }
 
         return plus
     }
+
     get Carga(){
         return this.carga
     }
@@ -134,23 +132,7 @@ class Lavadora extends Electrodomestico{
     
 }
 
-//esta funcion lo q hace es llenar un selector , cargo un array y lleno
-/*function addSelector (){
-    
-    var electrodomesticos = ["lavarropas", "televisor", "plancha"]
-    var selector = document.getElementById("electrodomestico")
 
-    for (let i =0; i < electrodomesticos.length; i++){  
-
-        selector.options[i] = new Option(electrodomesticos[i])
-
-
-    }
-
-
-}
-//llamo a la funcion para q cargue un select
-addSelector();*/
 
 // funcion para Cargar Electrodomesticos al campo <select>
 function cargar_electrodomesticos() {
@@ -164,6 +146,7 @@ function cargar_electrodomesticos() {
    
    // Rutina para agregar opciones a un <select>
    function addOptions(domElement, electrodomesticos) {
+    
     var select = document.getElementsByName(domElement)[0];
    
     for (value in electrodomesticos) {
@@ -172,10 +155,72 @@ function cargar_electrodomesticos() {
      option.text = electrodomesticos[value];
      select.add(option);
     }
+    
    }
 
-   cargar_electrodomesticos()
+   class Constantes{
 
+    CONSUMO = ["A", "B", "C", "D", "E", "F"];
+
+   }
+
+   class Consumo{
+
+    cargar_consumo(){
+        var consumo = new Constantes()
+        var letra = consumo.CONSUMO;
+        var selector = document.getElementsByName("consumo")[0]
+
+        for (var value in letra) {
+            var option = document.createElement("option");
+            option.value = value
+            option.text = letra[value];
+            selector.add(option);
+        }
+        
+    }
+        
+   }
+
+   c = new Consumo();
+   c.cargar_consumo();
+/*
+   function cargar_consumo(){
+       var CONSUMO = ["A", "B", "C", "D", "E", "F"];
+
+       addConsumo("consumo", CONSUMO);
+   }
+
+   function addConsumo(elemento, consumo){
+
+    var selector = document.getElementsByName(elemento)[0];
+    for(value in consumo){
+        var option = document.createElement("option");
+        option.text = consumo[value];
+        selector.add(option);
+    }
+   }*/
+  
+
+   
+   
+   
+   cargar_electrodomesticos()
+   //cargar_consumo()
+
+
+
+
+
+
+
+
+lavadora = new Lavadora(300,"violeta",'F',20,60)
+console.log(lavadora)
+console.log(lavadora.presioFinal())
+
+
+   /*
 lavadora = new Lavadora(300,"violeta",'F',20,60)
 console.log(lavadora)
 console.log(lavadora.presioFinal())
@@ -201,4 +246,4 @@ console.log(e.Peso)
 console.log(e.Color)
 
 lavadora2 = new Lavadora(500,"violeta",'F',50,70)
-console.log(lavadora2.presioFinal())
+console.log(lavadora2.presioFinal())*/
