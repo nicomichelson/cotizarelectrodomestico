@@ -2,9 +2,9 @@
 //tarea crear un formulario leer datos y calcular los precios
 
 //clase electrodomestico
-class Electrodomestico{
-     
-    constructor(presioBase, color, consumo, peso){
+class Electrodomestico {
+
+    constructor(presioBase, color, consumo, peso) {
         this.presioBase = presioBase
         this.comprobarColor(color)
         this.comprobarConsumo(consumo)
@@ -12,63 +12,63 @@ class Electrodomestico{
     }
 
     //getters
-    get PresioBase(){
+    get PresioBase() {
         return this.presioBase
     }
-    get Peso(){
+    get Peso() {
         return this.peso
     }
 
-    get Color(){
+    get Color() {
         return this.color
     }
 
     //setters
 
-    set Peso(peso){
+    set Peso(peso) {
         this.peso = peso
     }
-    set Color(color){
+    set Color(color) {
         this.color = color
     }
 
-     //comprueba q el color ingresado este dentro del rango de colores si no se le agrega un color por defecto
-    comprobarColor = function(color){
+    //comprueba q el color ingresado este dentro del rango de colores si no se le agrega un color por defecto
+    comprobarColor = function (color) {
 
-        var colores = ["rojo", "verde", "azul","blanco"]
+        var colores = ["rojo", "verde", "azul", "blanco"]
         var existe = false;
-        
-        for (let i = 0; i< colores.length; i++) {
-          
-            if(colores[i] === color){
-                
+
+        for (let i = 0; i < colores.length; i++) {
+
+            if (colores[i] === color) {
+
                 existe = true
 
             }
-           
+
         }
 
-        if(existe){
+        if (existe) {
             this.color = color
-        } else{
+        } else {
             this.color = "blanco"
         }
 
     }
     //comprueba el consumo este dentro de un rango, el rango va de A..F aplicando codigo ascii mayuscula
-    comprobarConsumo = function(consumo) {
-        
-        if(consumo.charCodeAt()>=65 && consumo.charCodeAt()<= 70){
+    comprobarConsumo = function (consumo) {
+
+        if (consumo.charCodeAt() >= 65 && consumo.charCodeAt() <= 70) {
             this.consumo = consumo
-        }else{
+        } else {
             this.consumo = 'F'
         }
     }
 
-     presioFinal (){
+    presioFinal() {
         var plus = 0
 
-        switch(this.consumo){
+        switch (this.consumo) {
 
             case 'A':
                 plus += 100
@@ -90,13 +90,13 @@ class Electrodomestico{
                 break
         }
 
-        if(this.peso >= 0 && this.peso <= 19){
+        if (this.peso >= 0 && this.peso <= 19) {
             plus += 10
-        }else if(this.peso >= 20 && this.peso <= 49){
-            plus +=50
-        }else if(this.peso >= 50 && this.peso <= 79){
+        } else if (this.peso >= 20 && this.peso <= 49) {
+            plus += 50
+        } else if (this.peso >= 50 && this.peso <= 79) {
             plus += 80
-        }else if(this.peso>80){
+        } else if (this.peso > 80) {
             plus += 100
         }
 
@@ -106,69 +106,67 @@ class Electrodomestico{
 
 }
 
-class Lavadora extends Electrodomestico{
+class Lavadora extends Electrodomestico {
 
-    constructor(presioBase, color, consumo, peso,carga){
-        
+    constructor(presioBase, color, consumo, peso, carga) {
+
         super(presioBase, color, consumo, peso)
         this.carga = carga
     }
-    presioFinal (){
-        
-        var plus =super.presioFinal();
-        
-        if(this.carga > 30){
-           plus  += 50
+    presioFinal() {
+
+        var plus = super.presioFinal();
+
+        if (this.carga > 30) {
+            plus += 50
         }
 
         return plus
     }
 
-    get Carga(){
+    get Carga() {
         return this.carga
     }
 
-   
-    
+
+
 }
 
 
-
-// funcion para Cargar Electrodomesticos al campo <select>
-function cargar_electrodomesticos() {
-    var electrodomesticos = ["Lavaropa", "Televisor", "Plancha", "Licuadora", "Ventilador"];
-   
-    // Ordena el Array Alfabeticamente, es muy facil ;)):
-    electrodomesticos.sort();
-   
-    addOptions("electrodomestico", electrodomesticos);
-   }
-   
-   // Rutina para agregar opciones a un <select>
-   function addOptions(domElement, electrodomesticos) {
-    
-    var select = document.getElementsByName(domElement)[0];
-   
-    for (value in electrodomesticos) {
-     var option = document.createElement("option");
-     option.value = value
-     option.text = electrodomesticos[value];
-     select.add(option);
-    }
-    
-   }
-
-   class Constantes{
+/* clases con funciones para cargar formularios */
+class Constantes {
 
     CONSUMO = ["A", "B", "C", "D", "E", "F"];
+    ELECTRODOMESTICOS = ["Lavaropa", "Televisor", "Plancha", "Licuadora", "Ventilador"];
 
-   }
+}
 
-   class Consumo{
+class Consumo {
 
-    cargar_consumo(){
-        var consumo = new Constantes()
-        var letra = consumo.CONSUMO;
+    cargar_elemento() {
+
+        var elementos = new Constantes()
+        var letra = elementos.CONSUMO;
+        var electrodomesticos = elementos.ELECTRODOMESTICOS.sort();
+
+        this.addConsumo("consumo", letra)
+        this.addElectrodomesticos("electrodomestico", electrodomesticos)
+    }
+
+    addElectrodomesticos(domElement, electrodomesticos) {
+        // Rutina para agregar opciones a un <select>
+        var select = document.getElementsByName(domElement)[0];
+
+        for (var value in electrodomesticos) {
+            var option = document.createElement("option");
+            option.value = value
+            option.text = electrodomesticos[value];
+            select.add(option);
+        }
+    }
+
+    addConsumo(elemento, letra) {
+
         var selector = document.getElementsByName("consumo")[0]
 
         for (var value in letra) {
@@ -177,36 +175,13 @@ function cargar_electrodomesticos() {
             option.text = letra[value];
             selector.add(option);
         }
-        
+
     }
-        
-   }
 
-   c = new Consumo();
-   c.cargar_consumo();
-/*
-   function cargar_consumo(){
-       var CONSUMO = ["A", "B", "C", "D", "E", "F"];
+}
 
-       addConsumo("consumo", CONSUMO);
-   }
-
-   function addConsumo(elemento, consumo){
-
-    var selector = document.getElementsByName(elemento)[0];
-    for(value in consumo){
-        var option = document.createElement("option");
-        option.text = consumo[value];
-        selector.add(option);
-    }
-   }*/
-  
-
-   
-   
-   
-   cargar_electrodomesticos()
-   //cargar_consumo()
+c = new Consumo();
+c.cargar_elemento();
 
 
 
@@ -215,35 +190,7 @@ function cargar_electrodomesticos() {
 
 
 
-lavadora = new Lavadora(300,"violeta",'F',20,60)
+
+lavadora = new Lavadora(300, "violeta", 'F', 20, 60)
 console.log(lavadora)
 console.log(lavadora.presioFinal())
-
-
-   /*
-lavadora = new Lavadora(300,"violeta",'F',20,60)
-console.log(lavadora)
-console.log(lavadora.presioFinal())
-
-
-e = new Electrodomestico(8,"violeta",'F',20)
-console.log(e.presioFinal())
-
-e2 = new Electrodomestico(200,"rojo", 'R', 30)
-
-e2.Color = "azul"
-console.log(e2)
-console.log(e2.Color)
-console.log(e2.PresioBase)
-console.log(e2.Peso)
-e2.Peso=500
-console.log(e2.Peso)
-
-console.log(e);
-console.log(e.color)
-console.log(e.PresioBase)
-console.log(e.Peso)
-console.log(e.Color)
-
-lavadora2 = new Lavadora(500,"violeta",'F',50,70)
-console.log(lavadora2.presioFinal())*/
