@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <title>Cotizador de electrodomesticos</title>
 </head>
+
 <body>
     <main class="container">
         <h1>Cotizador de electrodomesticos</h1>
 
-        <form action="#">
+        <form action="#" id="cotizar-electrodomestico">
             <div class="form-group">
                 <label for="electrodomesticos">Electrodomestico:</label>
-                <select name="electrodomestico"  class="form-control">
-                  <!-- <option value="addSelector();">Seleccionar</option> no hace falta este codigo aca -->  
-                  <option>Seleccione un Electrodomestico</option>
+                <select name="electrodomestico" class="form-control" id="electrodomestico" onchange="s.seleccionarElectrodomestico();">
+                    <!-- <option value="addSelector();">Seleccionar</option> no hace falta este codigo aca -->
+                    <option>Seleccione un Electrodomestico</option>
                 </select>
             </div>
+
+            <div class="form-group" id="ocultar" style="display:none">
+                <label for="peso">Ingrese el peso en kg:</label>
+                <input type="peso" class="form-control" id="peso">
+            </div>
+
             <div class="form-group">
                 <label for="presioBase">Ingrese Presio Base:</label>
                 <input type="presioBase" class="form-control" id="presioBase">
@@ -28,17 +36,22 @@
             </div>
             <div class="form-group">
                 <label for="consumo">Consumo:</label>
-                <select name="consumo"  class="form-control">
-                  <!-- <option value="addSelector();">Seleccionar</option> no hace falta este codigo aca -->  
-                  <option>Seleccione el Consumo</option>
+                <select name="consumo" class="form-control">
+                    <!-- <option value="addSelector();">Seleccionar</option> no hace falta este codigo aca -->
+                    <option>Seleccione el Consumo</option>
                 </select>
             </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-raised btn-primary">Cotizar
+                </button>
+            </div>
         </form>
-
+        <span id="selected"></span>
     </main>
     <script type="text/javascript" src="js/jquery-3.2.1.slim.min.js"></script>
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
+
 </html>

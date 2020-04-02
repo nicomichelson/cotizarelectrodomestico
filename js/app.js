@@ -137,7 +137,7 @@ class Lavadora extends Electrodomestico {
 class Constantes {
 
     CONSUMO = ["A", "B", "C", "D", "E", "F"];
-    ELECTRODOMESTICOS = ["Lavaropa", "Televisor", "Plancha", "Licuadora", "Ventilador"];
+    ELECTRODOMESTICOS = ["Lavarropa", "Televisor", "Plancha", "Licuadora", "Ventilador"];
 
 }
 
@@ -159,7 +159,7 @@ class Consumo {
 
         for (var value in electrodomesticos) {
             var option = document.createElement("option");
-            option.value = value
+            option.value = electrodomesticos[value]
             option.text = electrodomesticos[value];
             select.add(option);
         }
@@ -180,11 +180,58 @@ class Consumo {
 
 }
 
+//esta clase se va a encargar de validar los campos, luego va a pasar los valores para calcular
+class Interface {
+
+    seleccionarElectrodomestico(){
+   
+        let electrodomesticos = document.getElementById("electrodomestico");
+        let electrodomestico = electrodomesticos.options[electrodomesticos.selectedIndex].value;
+    
+        //document.getElementById("selected").innerText = `usted selecciono ${electrodomestico}.`;
+        //document.getElementById('ocultar').style.display = "block";
+
+        this.validarElectrodomestico(electrodomestico)
+    }
+    //aca se valida el electrodomestico, puede ser q el electrodomestico tenga atributos particulares
+    //para calcular su precio final.
+    validarElectrodomestico(electrodomestico){
+
+        if(electrodomestico === "Lavarropa"){
+
+            document.getElementById('ocultar').style.display = "block";
+        }else{
+            document.getElementById('ocultar').style.display = "none";
+        }
+    }
+
+
+
+
+}
+
+
+
+s = new Interface()
+s.seleccionarElectrodomestico();
 c = new Consumo();
 c.cargar_elemento();
 
+//document.getElementById('ocultar').style.display = "block"
+//var electrodomestico = document.getElementById('electrodomestico');
+//var electrodomesticoSeleccioanda = electrodomestico.options[electrodomestico.selectedIndex].value;
+//console.log(electrodomesticoSeleccioanda)
 
 
+
+const formulario = document.getElementById('cotizar-electrodomestico')
+formulario.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const electrodomestico = document.getElementById('electrodomestico');
+    const electrodomesticoSeleccioanda = electrodomestico.options[electrodomestico.selectedIndex].value;
+
+    console.log(electrodomesticoSeleccioanda)
+})
 
 
 
