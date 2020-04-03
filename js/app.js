@@ -1,6 +1,9 @@
 //document.getElementById('app').innerHTML = 'hola mundo';
 //tarea crear un formulario leer datos y calcular los precios
 
+//traigo el formulario completo aca
+const formulario = document.getElementById('cotizar-electrodomestico')
+
 //clase electrodomestico
 class Electrodomestico {
 
@@ -100,6 +103,10 @@ class Electrodomestico {
             plus += 100
         }
 
+        const div = document.createElement('div');
+        div.innerHTML = `<p class="header"> Tu Resumen: </p>
+                            <p> Electrodomestico:  </p>` 
+                        
         return this.presioBase + plus
 
     }
@@ -203,11 +210,30 @@ class Interface {
         }else{
             document.getElementById('ocultar').style.display = "none";
         }
+
+        
     }
 
+    
+    mostrarMensaje(mensaje, tipo){
 
+        const div = document.createElement('div');
 
+        if(tipo === "error"){
+            div.classList.add('mensaje', 'error');
+        }else{
+            div.classList.add('mensaje', 'correcto');
+        }
+        
+        div.innerHtml = `${mensaje}`;
+        formulario.insertBefore(div, document.querySelector('.form-group'));
 
+        setTimeout(function() {
+            document.querySelector('.mensaje').remove();
+       }, 3000);
+    }
+    
+    
 }
 
 
@@ -217,20 +243,58 @@ s.seleccionarElectrodomestico();
 c = new Consumo();
 c.cargar_elemento();
 
-//document.getElementById('ocultar').style.display = "block"
-//var electrodomestico = document.getElementById('electrodomestico');
-//var electrodomesticoSeleccioanda = electrodomestico.options[electrodomestico.selectedIndex].value;
-//console.log(electrodomesticoSeleccioanda)
 
 
 
-const formulario = document.getElementById('cotizar-electrodomestico')
+
+
 formulario.addEventListener('submit', function (e) {
     e.preventDefault();
+    //lee el electrodomestico seleccionado
     const electrodomestico = document.getElementById('electrodomestico');
-    const electrodomesticoSeleccioanda = electrodomestico.options[electrodomestico.selectedIndex].value;
+    const electrodomesticoSeleccioand = electrodomestico.options[electrodomestico.selectedIndex].value;
 
-    console.log(electrodomesticoSeleccioanda)
+    //le el peso del lavarropas. se habilita solo si es lavarropas
+    const peso = document.getElementById('peso')
+    const pesoIngresado = peso.value;
+
+    //lee el peso base del electrodomestico
+    const precioBase = document.getElementById('presioBase')
+    const precioBaseIngresado = precioBase.value;
+
+    //lee el color
+    const color = document.getElementById('color');
+    const colorIngresado = color.value;
+
+    const consumo = document.getElementById('consumo')
+    const consumoSeleccionado = consumo.options[consumo.selectedIndex].value;
+
+    const interface = new Interface()
+    if(electrodomesticoSeleccioand === '' || precioBaseIngresado === '' || colorIngresado === '' || consumoSeleccionado === ''){
+
+        interface.mostrarMensaje('falta completar campos, revise porfa', 'error');
+    }else{
+        //limpiar resultado
+        const resultado = document.querySelector('#resultado div')
+
+        if(resultado != null){
+
+            resultado.remove();
+        }
+
+        if(electrodomesticoSeleccioand === 'Lavarropas'){
+
+            const lavarropas = new Lavarropas(electrodomesticoSeleccioand,precioBaseIngresado,colorIngresado,consumoSeleccionado, pesoIngresado );
+        }else{
+
+            const electrodomestico = new Electrodomestico(lectrodomesticoSeleccioand,precioBaseIngresado,colorIngresado,consumoSeleccionado);
+        }
+        interface.mostrarMensaje('Cotizando...', 'Exito');
+    }
+
+
+    console.log(electrodomesticoSeleccioand)
+    console.log(pesoIngresado)
 })
 
 
