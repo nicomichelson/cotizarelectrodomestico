@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilo.css">
     <title>Cotizador de electrodomesticos</title>
 </head>
 
@@ -13,6 +14,7 @@
         <h1>Cotizador de electrodomesticos</h1>
 
         <form action="#" id="cotizar-electrodomestico">
+            
             <div class="form-group">
                 <label for="electrodomesticos">Electrodomestico:</label>
                 <select name="electrodomestico" class="form-control" id="electrodomestico" onchange="s.seleccionarElectrodomestico();">
@@ -22,6 +24,11 @@
             </div>
 
             <div class="form-group" id="ocultar" style="display:none">
+                <label for="carga">IngreseCarga:</label>
+                <input type="carga" class="form-control" id="carga">
+            </div>
+
+            <div class="form-group">
                 <label for="peso">Ingrese el peso en kg:</label>
                 <input type="peso" class="form-control" id="peso">
             </div>
@@ -36,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="consumo">Consumo:</label>
-                <select name="consumo" class="form-control">
+                <select name="consumo" class="form-control" id="consumo">
                     <!-- <option value="addSelector();">Seleccionar</option> no hace falta este codigo aca -->
                     <option>Seleccione el Consumo</option>
                 </select>
