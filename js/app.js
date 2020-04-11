@@ -30,6 +30,10 @@ class Electrodomestico {
         return this.color
     }
 
+    get Consumo(){
+        return this.consumo;
+    }
+
     //setters
 
     set Peso(peso) {
@@ -39,6 +43,9 @@ class Electrodomestico {
         this.color = color
     }
 
+    set Electrodomestico(electrodomestico){
+        this.electrodomestico = electrodomestico
+    }
     //comprueba q el color ingresado este dentro del rango de colores si no se le agrega un color por defecto
     comprobarColor(color) {
 
@@ -71,7 +78,7 @@ class Electrodomestico {
             this.consumo = 'F'
         }
     }
-
+     //calcula el precio final del electrodomestico segun sus caracteristicas
     presioFinal() {
         var plus = 0
 
@@ -107,16 +114,9 @@ class Electrodomestico {
             plus += 100
         }
 
-       const  div = document.createElement('div');
-        div.innerHTML = `<p class="header"> Tu Resumen: </p>
-                        <p> Electrodomestico: ${this.electrodomestico} </p>
-                        <p> Presio Base: ${this.presioBase} </p>
-                        <p> Color: ${this.color} </p>
-                        <p> Consumo: ${this.consumo} </p>
-                        <p> Peso: ${this.peso} </p>
-                        <p> Precio final: ${this.presioBase + plus} </p>` ;
+       
                         
-        //return this.presioBase + plus
+        return this.presioBase + plus
 
     }
 
@@ -124,11 +124,13 @@ class Electrodomestico {
 
 class Lavadora extends Electrodomestico {
 
-    constructor(presioBase, color, consumo, peso, carga) {
+    constructor(electrodomestico, presioBase, color, consumo, peso, carga) {
 
         super(electrodomestico, presioBase, color, consumo, peso)
         this.carga = carga
     }
+
+    //calcula el precio final solamente si es un lavarropas segun sus caracteristicas
     presioFinal() {
 
         var plus = super.presioFinal();
@@ -163,10 +165,11 @@ class Lavadora extends Electrodomestico {
 class Constantes {
 
     CONSUMO = ["A", "B", "C", "D", "E", "F"];
-    ELECTRODOMESTICOS = ["Lavarropa", "Televisor", "Plancha", "Licuadora", "Ventilador"];
+    ELECTRODOMESTICOS = ["Lavadora", "Televisor", "Plancha", "Licuadora", "Ventilador"];
 
 }
 
+//agrega elementos a un select o combo box
 class Consumo {
 
     cargar_elemento() {
@@ -223,7 +226,7 @@ class Interface {
     //para calcular su precio final.
     validarElectrodomestico(electrodomestico){
 
-        if(electrodomestico === "Lavarropa"){
+        if(electrodomestico === "Lavadora"){
 
             document.getElementById('ocultar').style.display = "block";
         }else{
@@ -233,14 +236,15 @@ class Interface {
         
     }
 
-    
-    mostrarMensaje(mensaje, tipo){
+    //mensaje de erro en el caso de q no se completen todos los campos
+    mostrarError(mensaje, tipo){
         //recibe un mensaje y un tipo de error
         //crea un elemnto div
         const div = document.createElement('div');
 
         //verifica el tipo de error y agrega a una classlist el mensaje y llama al css la clase error definida ahi
         //q luego es creada, todo por js
+        //enrrealidad parace q crea la clase mensaje y la clase error con el classlist.add
         if(tipo === "error"){
             div.classList.add('mensaje', 'error');
         }else{
@@ -285,10 +289,10 @@ formulario.addEventListener('submit', function (e) {
     //lee el color
     const color = document.getElementById('color');
     const colorIngresado = color.value;
-
+    //lee el consumo
     const consumo = document.getElementById('consumo')
     const consumoSeleccionado = consumo.options[consumo.selectedIndex].value;
-
+    //lee la carga en el caso de q sea lavadora
     const carga = document.getElementsByClassName('carga');
     const cargaIngresada = carga.value;
 
@@ -296,35 +300,11 @@ formulario.addEventListener('submit', function (e) {
     
     if(electrodomesticoSeleccioand === '' || precioBaseIngresado === '' || colorIngresado === '' || consumoSeleccionado === '' || peso === ''){
         //console.log("faltan datos");
-        interface.mostrarMensaje('Faltan datos, revisar el formulario', 'error');
+        interface.mostrarError('Faltan datos, revisar el formulario', 'error');
     }else{
         console.log('exitos');
     }
     
-    /*if(electrodomesticoSeleccioand === '' || precioBaseIngresado === '' || colorIngresado === '' || consumoSeleccionado === '' || peso === ''){
-
-        interface.mostrarMensaje('falta completar campos, revise porfa', 'error');
-    }else{
-        //limpiar resultado
-        const resultado = document.querySelector('#resultado div')
-
-        if(resultado != null){
-
-            resultado.remove();
-        }
-
-        if(electrodomesticoSeleccioand === 'Lavarropas'){
-
-            const lavarropas = new Lavarropas(electrodomesticoSeleccioand,precioBaseIngresado,colorIngresado,consumoSeleccionado, cargaIngresada );
-            lavarropas.presioFinal();
-        }else{
-
-            const electrodomestico = new Electrodomestico(electrodomesticoSeleccioand,precioBaseIngresado,colorIngresado,consumoSeleccionado);
-            electrodomestico.presioFinal();
-        }
-        interface.mostrarMensaje('Cotizando...', 'Exito');
-    }*/
-
     /*
     console.log(electrodomesticoSeleccioand)
     console.log(pesoIngresado)*/
@@ -337,7 +317,7 @@ c = new Consumo();
 c.cargar_elemento();
 
 
-/*
-lavadora = new Lavadora(300, "violeta", 'F', 20, 60)
-console.log(lavadora.Color)
-lavadora.presioFinal()*/
+electro1 = new Electrodomestico('secador',500,'rojo','F',50);
+electro = new Electrodomestico('Lavadora',500,'rojo','F',50);
+console.log(electro.presioFinal());
+console.log(electro1.presioFinal());
