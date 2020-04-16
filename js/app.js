@@ -120,6 +120,24 @@ class Electrodomestico {
 
     }
 
+    mostraResultado(){
+        const resultad = document.getElementById('resultado');
+        const div = document.createElement('div');
+
+        div.innerHTML =`
+            <p>Tu Resumen: </p>
+            <p>Electrodomestico: ${this.electrodomestico}</p>
+            <p>Precio Base : ${this.presioBase}</p>
+            <p>Color: ${this.color}</p>
+            <p>Consumo: ${this.consumo}</p>
+            <p>Peso:   ${this.peso}</p>
+            <p>Precio final: ${this.presioFinal()}</p>
+        `;
+
+        resultado.appendChild(div);
+
+    }
+
 }
 
 class Lavadora extends Electrodomestico {
@@ -321,3 +339,5 @@ electro1 = new Electrodomestico('secador',500,'rojo','F',50);
 electro = new Electrodomestico('Lavadora',500,'rojo','F',50);
 console.log(electro.presioFinal());
 console.log(electro1.presioFinal());
+console.log(electro1.mostraResultado());
+console.log(electro1.PresioBase)
