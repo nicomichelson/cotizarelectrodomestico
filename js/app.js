@@ -320,7 +320,18 @@ formulario.addEventListener('submit', function (e) {
         //console.log("faltan datos");
         interface.mostrarError('Faltan datos, revisar el formulario', 'error');
     }else{
-        console.log('exitos');
+        //limpia el resultado cada vez q se llama a una nueva cotizacion
+
+        const resultado = document.querySelector('#resultado div');
+        if(resultado != null){
+            resultado.remove();
+        }
+
+        //instancia el electrodomestico y mustra el resultado
+        //console.log('exitos');
+        e = new Electrodomestico(electrodomesticoSeleccioand,precioBaseIngresado, colorIngresado, consumoSeleccionado, peso  );
+        //console.log(e.mostraResultado());
+        e.mostraResultado();
     }
     
     /*
@@ -334,10 +345,10 @@ s.seleccionarElectrodomestico();
 c = new Consumo();
 c.cargar_elemento();
 
-
+/*
 electro1 = new Electrodomestico('secador',500,'rojo','F',50);
 electro = new Electrodomestico('Lavadora',500,'rojo','F',50);
 console.log(electro.presioFinal());
 console.log(electro1.presioFinal());
 console.log(electro1.mostraResultado());
-console.log(electro1.PresioBase)
+console.log(electro1.PresioBase)*/
