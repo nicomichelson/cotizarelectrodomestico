@@ -125,7 +125,7 @@ class Electrodomestico {
         const div = document.createElement('div');
 
         div.innerHTML =`
-            <p>Tu Resumen: </p>
+            <p class='header'>Tu Resumen: </p>
             <p>Electrodomestico: ${this.electrodomestico}</p>
             <p>Precio Base : ${this.presioBase}</p>
             <p>Color: ${this.color}</p>
@@ -133,8 +133,14 @@ class Electrodomestico {
             <p>Peso:   ${this.peso}</p>
             <p>Precio final: ${this.presioFinal()}</p>
         `;
-
-        resultado.appendChild(div);
+        const spinner = document.querySelector('#cargando img');
+        spinner.style.display= 'block';
+        
+        setTimeout(function(){
+            spinner.style.display= 'none';
+            resultado.appendChild(div);
+        },3000);
+        
 
     }
 
