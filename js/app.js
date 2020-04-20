@@ -337,6 +337,7 @@ formulario.addEventListener('submit', function (e) {
         //console.log('exitos');
         e = new Electrodomestico(electrodomesticoSeleccioand,precioBaseIngresado, colorIngresado, consumoSeleccionado, peso  );
         //console.log(e.mostraResultado());
+        interface.mostrarError('cotizando...', 'exito');
         e.mostraResultado();
     }
     
