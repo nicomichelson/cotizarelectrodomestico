@@ -341,9 +341,7 @@ formulario.addEventListener('submit', function (e) {
         e.mostraResultado();
     }
     
-    /*
-    console.log(electrodomesticoSeleccioand)
-    console.log(pesoIngresado)*/
+   
 })
 
 
